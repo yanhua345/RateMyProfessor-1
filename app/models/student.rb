@@ -4,7 +4,7 @@ class Student < ActiveRecord::Base
   validates :email,
     :presence => true,
     :uniqueness => true,
-    :format => { :with => /^([^@\s]+)@(unm.edu)$/i }
+    :format => { :with => /^([^@\s]+)@([^@\s]+.edu)$/i }
   has_and_belongs_to_many :courses    # foreign keys in an invisible join table
 
 end

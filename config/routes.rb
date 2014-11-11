@@ -12,6 +12,8 @@ RateMyProfessor::Application.routes.draw do
 
   match '/login', to: 'static_pages#login'
 
+  match 'users/sign_out', to: 'static_pages#login'
+
   resources :students
 
   resources :departments do

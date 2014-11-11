@@ -10,6 +10,6 @@ class User < ActiveRecord::Base
   validates :email,
     :presence => true,
     :uniqueness => true,
-    :format => { :with => /^([^@\s]+)@(unm.edu)$/i }
+    :format => { :with => /^([^@\s]+)@([^@\s]+.edu)$/i }
   # attr_accessible :title, :body
 end
