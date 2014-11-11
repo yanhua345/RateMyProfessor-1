@@ -1,0 +1,52 @@
+<%@letter=params[:letter]%>
+<%@search=params[:search]%>
+
+<table class="table_dept">
+  <tr>
+	<td class="title">Schools</td>
+  </tr>
+<%@flag=0;%>
+  <% @schools.each do |school| %>
+
+    <%if (params[:search]||params[:letter])&&@letter!="All"%>
+	<%if @search %>
+		<%next if (!school.name.downcase.index(@search.downcase)&&!school.shortname.downcase.index(@search.downcase))%>
+	<%else%>
+		<%next if school.name[0].upcase!=@letter%>
+	<%end%>
+    <%end%>
+
+  <tr class="<%=cycle('list_line_odd','list_line_even')%>">
+    <td class="list_name">
+
+	<%@flag=1%>
+	<%= link_to school.name, school_professors_path(school)%></td>
+<!--	<%= link_to school.name %></td>-->
+<!--<a href="/professors?school=<%=school.shortname%>"><%=school.name%></a>-->
+
+
+    	<% if admin_signed_in? %>
+
+    <td><%= link_to 'Edit', edit_school_path(school) %></td>
+    <td><%= link_to 'Destroy', school, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+    	<% end %>
+  </tr>
+
+<% end %>
+
+<%if @flag==0%>
+  <tr class="<%=cycle('list_line_odd','list_line_even')%>">
+    <td class="list_name">
+
+	No schools meet the criteria</td>
+
+<%end%>
+<tr>
+
+</table>
+
+<br />
+<% if admin_signed_in? %>
+  <%= link_to 'New School', new_school_path %>
+<% end %>
